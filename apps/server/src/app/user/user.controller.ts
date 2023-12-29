@@ -16,7 +16,7 @@ import {
   CreateUserRequestDto,
   ROLE,
   UserResponseDto,
-} from '@authorization-app/libs';
+} from '@contacts-app/libs';
 
 @Controller('user')
 export class UserController {

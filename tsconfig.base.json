@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@authorization-app/libs": ["libs/src/index.ts"]
+      "@contacts-app/libs": ["libs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

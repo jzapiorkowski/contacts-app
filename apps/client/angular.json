@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "authorization-app": {
+    "contacts-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/authorization-app",
+            "outputPath": "dist/contacts-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -65,10 +65,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "authorization-app:build:production"
+              "browserTarget": "contacts-app:build:production"
             },
             "development": {
-              "browserTarget": "authorization-app:build:development"
+              "browserTarget": "contacts-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "authorization-app:build"
+            "browserTarget": "contacts-app:build"
           }
         },
         "test": {

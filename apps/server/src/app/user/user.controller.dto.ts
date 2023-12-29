@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { ROLE } from '@authorization-app/libs';
+import { ROLE } from '@contacts-app/libs';
 
 export class CreateUserRequestDto {
   @IsString()

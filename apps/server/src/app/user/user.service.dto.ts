@@ -1,4 +1,4 @@
-import { ROLE } from '@authorization-app/libs';
+import { ROLE } from '@contacts-app/libs';
 import { Types } from 'mongoose';
 
 export interface CreateUserInputDto {

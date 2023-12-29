@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from './jwt/jwt.service';
 import { TOKEN_EXPIRATION } from '../../constants';
-import { ACCESS_TOKEN, EXPIRES_IN } from '@authorization-app/libs';
+import { ACCESS_TOKEN, EXPIRES_IN } from '@contacts-app/libs';
 import { LoginInputDto, LoginOutputDto } from './auth.service.dto';
 
 @Injectable()

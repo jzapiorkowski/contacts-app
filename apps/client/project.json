@@ -2,7 +2,7 @@
   "name": "client",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "authorization-app",
+  "prefix": "contacts-app",
   "sourceRoot": "apps/client/src",
   "tags": [],
   "targets": {

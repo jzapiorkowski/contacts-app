@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'authorization-app-root',
+  selector: 'contacts-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

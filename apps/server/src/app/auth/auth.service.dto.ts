@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, EXPIRES_IN } from '@authorization-app/libs';
+import { ACCESS_TOKEN, EXPIRES_IN } from '@contacts-app/libs';
 
 export interface LoginInputDto {
   username: string;

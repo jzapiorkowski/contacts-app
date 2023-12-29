@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { JwtService } from './jwt.service';
 import { LocalStorageService } from '../../local-storage/local-storage.service';
-import { ACCESS_TOKEN } from '@authorization-app/libs';
+import { ACCESS_TOKEN } from '@contacts-app/libs';
 
 describe('JwtService', () => {
   let jwtService: JwtService;

@@ -1,4 +1,4 @@
-import { ROLE } from '@authorization-app/libs';
+import { ROLE } from '@contacts-app/libs';
 import { Schema, Document } from 'mongoose';
 
 export const UserSchema = new Schema({

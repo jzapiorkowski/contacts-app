@@ -11,7 +11,7 @@ import {
   LoginResponseDto,
   ROLE,
   SignInDto,
-} from '@authorization-app/libs';
+} from '@contacts-app/libs';
 
 @Injectable()
 export class AuthService {

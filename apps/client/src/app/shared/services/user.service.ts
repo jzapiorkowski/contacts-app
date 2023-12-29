@@ -2,7 +2,7 @@ import {
   CreateUserRequestDto,
   ROLE,
   UserResponseDto,
-} from '@authorization-app/libs';
+} from '@contacts-app/libs';
 import { Injectable } from '@angular/core';
 import { JwtService } from '../../core/auth/jwt/jwt.service';
 import { HttpClient } from '@angular/common/http';
