@@ -4,6 +4,7 @@ import { JwtService } from './jwt/jwt.service';
 import { TOKEN_EXPIRATION } from '../../constants';
 import { ACCESS_TOKEN, EXPIRES_IN } from '@contacts-app/libs';
 import { LoginInputDto, LoginOutputDto } from './auth.service.dto';
+import { TokenPayloadDto } from './dto/token-payload.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
         password,
       });
 
-      const payload = {
+      const payload: TokenPayloadDto = {
         sub: user._id.toHexString(),
         username: user.username,
         roles: user.roles,
