@@ -2,6 +2,9 @@
 
 <div *ngIf="isLoggedIn; else notLoggedIn">
   <p>seems like you're logged in</p>
+  <button mat-raised-button>
+    <a routerLink="/contacts">Go to your contacts list</a>
+  </button>
   <button mat-raised-button (click)="logout()">Log out</button>
 </div>
 
