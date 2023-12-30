@@ -9,4 +9,8 @@ export class ContactsService {
   getAllContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>('http://localhost:3000/contacts');
   }
+
+  getContactDetails(id: string): Observable<Contact> {
+    return this.http.get<Contact>(`http://localhost:3000/contacts/${id}`);
+  }
 }

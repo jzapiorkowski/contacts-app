@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { contactsRoutes } from './contacts.routes';
 import { ContactsService } from './services/contacts.service';
 import { MaterialModule } from '../../material/material.module';
+import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 
 @NgModule({
-  declarations: [ContactsListComponent],
+  declarations: [ContactsListComponent, ContactDetailsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(contactsRoutes),

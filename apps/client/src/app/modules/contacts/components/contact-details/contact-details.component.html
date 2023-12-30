@@ -1,0 +1,36 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <p *ngIf="!contactDetails">Contact not found :(</p>
+
+  <mat-card *ngIf="contactDetails">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>{{ contactDetails.firstname }} {{ contactDetails.lastName }}</h2>
+      </mat-card-title>
+      <mat-card-subtitle
+        >Contact ID: {{ contactDetails._id }}</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>Phone number: {{ contactDetails.phoneNumber }}</p>
+
+      <ng-container *ngIf="contactDetails.addresses.length">
+        <h4>Addresses:</h4>
+        <ul>
+          <li *ngFor="let address of contactDetails.addresses; let i = index">
+            <p>Address {{ i + 1 }}:</p>
+            <p>Street: {{ address.street }}</p>
+            <p>City: {{ address.city }}</p>
+            <p>State: {{ address.state }}</p>
+            <p>Zip code: {{ address.zip }}</p>
+            <p>Country: {{ address.country }}</p>
+          </li>
+        </ul>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #loading>
+  <p>loading...</p>
+</ng-template>
