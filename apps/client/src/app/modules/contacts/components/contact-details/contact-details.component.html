@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isLoading; else loading">
+<div class="container" *ngIf="!isLoading; else loading">
   <p *ngIf="!contactDetails">Contact not found :(</p>
 
   <button mat-raised-button>
@@ -39,9 +39,12 @@
           Edit this contact
         </a>
       </button>
+      <button mat-raised-button (click)="deleteContact()">
+        Delete this contact
+      </button>
     </mat-card-actions>
   </mat-card>
-</ng-container>
+</div>
 
 <ng-template #loading>
   <p>loading...</p>

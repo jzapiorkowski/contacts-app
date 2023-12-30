@@ -27,4 +27,8 @@ export class ContactsService {
       contact
     );
   }
+
+  deleteContact(id: string): Observable<void> {
+    return this.http.delete<void>(`http://localhost:3000/contacts/${id}`);
+  }
 }
