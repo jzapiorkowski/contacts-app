@@ -146,18 +146,23 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     this.contactsService
       .getContactDetails(id)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((contact) => {
-        this.contactForm.patchValue({
-          firstname: contact.firstname,
-          lastName: contact.lastName,
-          phoneNumber: contact.phoneNumber,
-        });
+      .subscribe({
+        next: (contact) => {
+          this.contactForm.patchValue({
+            firstname: contact.firstname,
+            lastName: contact.lastName,
+            phoneNumber: contact.phoneNumber,
+          });
 
-        this.addressesFormArray.clear();
+          this.addressesFormArray.clear();
 
-        contact.addresses.forEach((address) => {
-          this.addressesFormArray.push(this.addAddressFormGroup(address));
-        });
+          contact.addresses.forEach((address) => {
+            this.addressesFormArray.push(this.addAddressFormGroup(address));
+          });
+        },
+        error: () => {
+          this.router.navigate(['/contacts']);
+        },
       });
   }
 

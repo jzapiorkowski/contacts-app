@@ -2,7 +2,7 @@ import { ConfirmationModalComponent } from './../../../../shared/components/conf
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContactsService } from '../../services/contacts.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, catchError, filter, of, switchMap, takeUntil } from 'rxjs';
+import { Subject, filter, switchMap, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -33,15 +33,16 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
         switchMap((params) => {
           const id = params['id'];
           return this.contactsService.getContactDetails(id);
-        }),
-        catchError(() => {
-          this.isLoading = false;
-          return of(null);
         })
       )
-      .subscribe((contact) => {
-        this.contactDetails = contact;
-        this.isLoading = false;
+      .subscribe({
+        next: (contact) => {
+          this.contactDetails = contact;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.router.navigate(['/contacts']);
+        },
       });
   }
 
