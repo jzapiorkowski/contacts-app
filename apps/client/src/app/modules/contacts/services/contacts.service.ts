@@ -17,4 +17,14 @@ export class ContactsService {
   createNewContact(contact: CreateContactDto): Observable<Contact> {
     return this.http.post<Contact>('http://localhost:3000/contacts', contact);
   }
+
+  updateContact(
+    id: string,
+    contact: Partial<CreateContactDto>
+  ): Observable<Contact> {
+    return this.http.put<Contact>(
+      `http://localhost:3000/contacts/${id}`,
+      contact
+    );
+  }
 }

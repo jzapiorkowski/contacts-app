@@ -32,6 +32,14 @@
         </ul>
       </ng-container>
     </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button>
+        <a [routerLink]="['/contacts', 'form', contactDetails._id]">
+          Edit this contact
+        </a>
+      </button>
+    </mat-card-actions>
   </mat-card>
 </ng-container>
 

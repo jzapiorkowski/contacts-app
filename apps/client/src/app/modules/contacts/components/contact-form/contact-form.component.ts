@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ContactsService } from '../../services/contacts.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 interface ContactForm {
   firstname: FormControl<string | null>;
@@ -24,7 +25,7 @@ interface AddressForm {
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss'],
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnInit, OnDestroy {
   contactForm = new FormGroup<ContactForm>({
     firstname: new FormControl('', [
       Validators.required,
@@ -39,30 +40,49 @@ export class ContactFormComponent {
       Validators.pattern(/^\d+$/),
     ]),
     addresses: new FormArray(
-      [this.createAddressFormGroup()],
+      [this.addAddressFormGroup()],
       [Validators.required, Validators.minLength(1)]
     ),
   });
 
+  isEditMode = false;
+  destroy$ = new Subject();
+
   constructor(
     private contactsService: ContactsService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  createAddressFormGroup(): FormGroup<AddressForm> {
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+
+    if (id) {
+      this.isEditMode = true;
+      this.loadContact(id);
+    }
+  }
+
+  addAddressFormGroup(address?: Address): FormGroup<AddressForm> {
     return new FormGroup<AddressForm>({
-      street: new FormControl('', [
+      street: new FormControl(address?.street || '', [
         Validators.required,
         Validators.minLength(3),
       ]),
-      city: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      state: new FormControl('', [
+      city: new FormControl(address?.city || '', [
         Validators.required,
         Validators.minLength(3),
       ]),
-      zip: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      country: new FormControl('', [
+      state: new FormControl(address?.state || '', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      zip: new FormControl(address?.zip || '', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      country: new FormControl(address?.country || '', [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -74,7 +94,7 @@ export class ContactFormComponent {
   }
 
   addAddress() {
-    this.addressesFormArray.push(this.createAddressFormGroup());
+    this.addressesFormArray.push(this.addAddressFormGroup());
   }
 
   removeAddress(index: number) {
@@ -86,9 +106,7 @@ export class ContactFormComponent {
       return;
     }
 
-    console.log(this.contactForm.value);
-
-    const createContactDto: CreateContactDto = {
+    const contactDto: CreateContactDto = {
       firstname: this.contactForm.value.firstname!,
       lastName: this.contactForm.value.lastName!,
       phoneNumber: this.contactForm.value.phoneNumber!,
@@ -101,11 +119,50 @@ export class ContactFormComponent {
       })),
     };
 
+    if (this.isEditMode) {
+      const id = this.route.snapshot.params['id'];
+
+      this.contactsService
+        .updateContact(id, contactDto)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => {
+          this.toastr.success('Contact updated successfully!');
+          this.router.navigate(['/contacts', id]);
+        });
+
+      return;
+    }
+
     this.contactsService
-      .createNewContact(createContactDto)
+      .createNewContact(contactDto)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((contact) => {
         this.toastr.success('Contact created successfully!');
         this.router.navigate(['/contacts', contact._id]);
       });
+  }
+
+  private loadContact(id: string): void {
+    this.contactsService
+      .getContactDetails(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((contact) => {
+        this.contactForm.patchValue({
+          firstname: contact.firstname,
+          lastName: contact.lastName,
+          phoneNumber: contact.phoneNumber,
+        });
+
+        this.addressesFormArray.clear();
+
+        contact.addresses.forEach((address) => {
+          this.addressesFormArray.push(this.addAddressFormGroup(address));
+        });
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

@@ -1,5 +1,10 @@
+<button mat-raised-button>
+  <a routerLink="/contacts">Return to contacts list</a>
+</button>
+
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-  <h2>Create new contact</h2>
+  <h2 *ngIf="isEditMode">Edit contact</h2>
+  <h2 *ngIf="!isEditMode">Create new contact</h2>
 
   <mat-form-field appearance="fill">
     <input
