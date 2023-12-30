@@ -1,0 +1,120 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <h2>Create new contact</h2>
+
+  <mat-form-field appearance="fill">
+    <input
+      matInput
+      placeholder="First Name"
+      formControlName="firstname"
+      required
+    />
+    <mat-error class="error">
+      {{ contactForm.controls.firstname.errors | formError }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Last Name"
+      formControlName="lastName"
+      required
+    />
+    <mat-error class="error">
+      {{ contactForm.controls.lastName.errors | formError }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Phone Number"
+      formControlName="phoneNumber"
+      type="number"
+      required
+    />
+    <mat-error class="error">
+      {{ contactForm.controls.phoneNumber.errors | formError }}
+    </mat-error>
+  </mat-form-field>
+
+  <div formArrayName="addresses" class="addresses">
+    <div
+      *ngFor="let addressGroup of addressesFormArray.controls; let i = index"
+      [formGroupName]="i"
+      class="address-group"
+    >
+      <h3>
+        Address {{ i + 1 }}
+        <button
+          mat-icon-button
+          color="warn"
+          class="remote-address"
+          (click)="removeAddress(i)"
+        >
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </h3>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Street"
+          formControlName="street"
+          required
+        />
+        <mat-error class="error">
+          {{ addressGroup.controls.street.errors | formError }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="City" formControlName="city" required />
+        <mat-error class="error">
+          {{ addressGroup.controls.city.errors | formError }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="State" formControlName="state" required />
+        <mat-error class="error">
+          {{ addressGroup.controls.state.errors | formError }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="ZIP" formControlName="zip" required />
+        <mat-error class="error">
+          {{ addressGroup.controls.zip.errors | formError }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Country"
+          formControlName="country"
+          required
+        />
+        <mat-error class="error">
+          {{ addressGroup.controls.country.errors | formError }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-error class="error" *ngIf="contactForm.controls.addresses.errors">
+      Addresses: {{ contactForm.controls.addresses.errors | formError }}
+    </mat-error>
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="addAddress()"
+  >
+    Add Address
+  </button>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

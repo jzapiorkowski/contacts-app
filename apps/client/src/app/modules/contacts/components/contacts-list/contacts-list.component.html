@@ -1,5 +1,12 @@
 <div class="container">
   <h2>Contacts list</h2>
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/contacts', 'form']"
+  >
+    Create new contact
+  </button>
 
   <ng-container *ngIf="!isLoading; else loading">
     <p *ngIf="!contactsList.length">No contacts found :(</p>

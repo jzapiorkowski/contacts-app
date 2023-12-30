@@ -1,14 +1,18 @@
 <ng-container *ngIf="!isLoading; else loading">
   <p *ngIf="!contactDetails">Contact not found :(</p>
 
+  <button mat-raised-button>
+    <a routerLink="/contacts">Return to contacts list</a>
+  </button>
+
   <mat-card *ngIf="contactDetails">
     <mat-card-header>
       <mat-card-title>
         <h2>{{ contactDetails.firstname }} {{ contactDetails.lastName }}</h2>
       </mat-card-title>
-      <mat-card-subtitle
-        >Contact ID: {{ contactDetails._id }}</mat-card-subtitle
-      >
+      <mat-card-subtitle>
+        Contact ID: {{ contactDetails._id }}
+      </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>

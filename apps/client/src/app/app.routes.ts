@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
@@ -14,5 +15,6 @@ export const appRoutes: Route[] = [
       import('./modules/contacts/contacts.module').then(
         (m) => m.ContactsModule
       ),
+    canActivate: [AuthGuard],
   },
 ];
