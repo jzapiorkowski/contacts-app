@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
@@ -16,5 +17,10 @@ export const appRoutes: Route[] = [
         (m) => m.ContactsModule
       ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: PageNotFoundComponent,
   },
 ];

@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { AuthModule } from './auth/auth.module';
 import { interceptorsProviders } from './interceptors/interceptors.providers';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
-  imports: [CommonModule, AuthModule, BrowserAnimationsModule],
+  imports: [CommonModule, AuthModule, ComponentsModule],
   providers: [LocalStorageService, ...interceptorsProviders],
-  exports: [AuthModule],
+  exports: [AuthModule, ComponentsModule],
 })
 export class CoreModule {}
