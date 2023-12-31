@@ -9,12 +9,15 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
 import { ContactFormComponent } from './components/contact-form/contact-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { ContactsFiltererService } from './services/contacts-filterer.service';
+import { ContactsFilterPanelComponent } from './components/contacts-list/contacts-filter-panel/contacts-filter-panel.component';
 
 @NgModule({
   declarations: [
     ContactsListComponent,
     ContactDetailsComponent,
     ContactFormComponent,
+    ContactsFilterPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,6 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
   ],
   exports: [RouterModule],
-  providers: [ContactsService],
+  providers: [ContactsService, ContactsFiltererService],
 })
 export class ContactsModule {}

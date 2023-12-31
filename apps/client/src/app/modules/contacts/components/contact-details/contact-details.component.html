@@ -17,6 +17,8 @@
 
     <mat-card-content>
       <p>Phone number: {{ contactDetails.phoneNumber }}</p>
+      <p>Modified At: {{ contactDetails.modifiedAt | date }}</p>
+      <p *ngIf="contactDetails.isFamily">Family member</p>
 
       <ng-container *ngIf="contactDetails.addresses.length">
         <h4>Addresses:</h4>

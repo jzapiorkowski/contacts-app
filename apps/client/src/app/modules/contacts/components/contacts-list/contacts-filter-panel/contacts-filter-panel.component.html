@@ -1,0 +1,31 @@
+<form [formGroup]="filterPanelForm" (ngSubmit)="submitForm()">
+  <mat-form-field>
+    <input matInput placeholder="Last name" formControlName="search" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select formControlName="sortTypeField">
+      <mat-option
+        *ngFor="let sortTypeFieldOption of sortTypeFieldOptions"
+        [value]="sortTypeFieldOption"
+      >
+        {{ sortTypeFieldOption }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select formControlName="sortDirection">
+      <mat-option
+        *ngFor="let sortDirectionOption of sortDirectionOptions"
+        [value]="sortDirectionOption"
+      >
+        {{ sortDirectionOption }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="onlyFamily">Only family</mat-checkbox>
+
+  <button mat-raised-button type="submit">Filter</button>
+</form>

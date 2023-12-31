@@ -8,6 +8,10 @@
     Create new contact
   </button>
 
+  <app-contacts-filter-panel
+    (filteringOptions)="onFilterChange($event)"
+  ></app-contacts-filter-panel>
+
   <ng-container *ngIf="!isLoading; else loading">
     <p *ngIf="!contactsList.length">No contacts found :(</p>
 
@@ -16,6 +20,9 @@
         <h4>Contact id {{ contact._id }}</h4>
         <p>First name: {{ contact.firstname }}</p>
         <p>Last name: {{ contact.lastName }}</p>
+        <p>Modified At: {{ contact.modifiedAt | date }}</p>
+        <p>Phone number: {{ contact.phoneNumber }}</p>
+        <p *ngIf="contact.isFamily">Family member</p>
       </mat-card-content>
       <mat-card-actions>
         <button
@@ -28,6 +35,14 @@
       </mat-card-actions>
     </mat-card>
   </ng-container>
+
+  <mat-paginator
+    [length]="allContacts.length"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPaginatorChange($event)"
+    [pageIndex]="pageIndex"
+  >
+  </mat-paginator>
 
   <ng-template #loading>
     <p>loading...</p>
