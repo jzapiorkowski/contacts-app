@@ -10,6 +10,8 @@ export class ContactMapper {
     readContactDto.phoneNumber = contact.phoneNumber;
     readContactDto.addresses = contact.addresses;
     readContactDto.ownerId = contact.ownerId;
+    readContactDto.modifiedAt = contact.modifiedAt;
+    readContactDto.isFamily = contact.isFamily;
 
     return readContactDto;
   }

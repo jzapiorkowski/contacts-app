@@ -34,6 +34,12 @@ export class Contact extends Document {
   @Prop({ required: true, type: Number })
   phoneNumber: number;
 
+  @Prop({ required: true, type: String })
+  modifiedAt: string;
+
+  @Prop({ required: true, type: Boolean })
+  isFamily: boolean;
+
   @Prop([{ required: true, type: Address }])
   addresses: Address[];
 }

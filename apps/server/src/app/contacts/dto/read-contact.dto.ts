@@ -9,6 +9,10 @@ export class ReadContactDto {
 
   phoneNumber: number;
 
+  modifiedAt: string;
+
+  isFamily: boolean;
+
   addresses: ReadContactAddressDto[];
 }
 

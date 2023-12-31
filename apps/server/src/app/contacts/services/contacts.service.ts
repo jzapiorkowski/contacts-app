@@ -14,7 +14,13 @@ export class ContactsService {
   ) {}
 
   create(createContactDto: CreateContactDto, userId: string) {
-    return this.contactModel.create({ ...createContactDto, ownerId: userId });
+    const modifiedAt = new Date().toISOString();
+
+    return this.contactModel.create({
+      ...createContactDto,
+      ownerId: userId,
+      modifiedAt,
+    });
   }
 
   async findAll(userId: string): Promise<ReadContactDto[]> {
@@ -44,9 +50,16 @@ export class ContactsService {
 
   async update(id: string, updateContactDto: UpdateContactDto, userId: string) {
     await this.findOne(id, userId);
-    return this.contactModel.findOneAndUpdate({ _id: id }, updateContactDto, {
-      new: true,
-    });
+
+    const modifiedAt = new Date().toISOString();
+
+    return this.contactModel.findOneAndUpdate(
+      { _id: id },
+      { ...updateContactDto, modifiedAt },
+      {
+        new: true,
+      }
+    );
   }
 
   updateForAdmin(id: string, updateContactDto: UpdateContactDto) {
