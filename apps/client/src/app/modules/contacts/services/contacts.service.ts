@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactsService {
-  private constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {}
 
   public getAllContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>('http://localhost:3000/contacts');

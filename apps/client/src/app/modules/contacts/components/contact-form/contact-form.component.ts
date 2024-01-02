@@ -48,7 +48,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   public isEditMode: boolean = false;
   private destroy$: Subject<boolean> = new Subject();
 
-  private constructor(
+  public constructor(
     private contactsService: ContactsService,
     private toastr: ToastrService,
     private router: Router,

@@ -16,7 +16,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
   public isLoading: boolean = false;
   private destroy$: Subject<boolean> = new Subject();
 
-  private constructor(
+  public constructor(
     private contactsService: ContactsService,
     private route: ActivatedRoute,
     private toastr: ToastrService,

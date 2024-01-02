@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '@contacts-app/libs';
   providedIn: 'root',
 })
 export class JwtService {
-  private constructor(private localStorageService: LocalStorageService) {}
+  public constructor(private localStorageService: LocalStorageService) {}
 
   public get token(): string {
     return this.localStorageService.getItem(ACCESS_TOKEN)! as string;

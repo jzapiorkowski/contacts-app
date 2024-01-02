@@ -10,21 +10,21 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
-  private constructor(
+  public constructor(
     private jwtService: JwtService,
     private http: HttpClient
   ) {}
 
   public get getUserId(): string {
-    return this.jwtService.decodeToken().sub;
+    return (this.jwtService.decodeToken() as TokenPayload).sub;
   }
 
   public get getUserUsername(): string {
-    return this.jwtService.decodeToken().username;
+    return (this.jwtService.decodeToken() as TokenPayload).username;
   }
 
   public get getPermissions(): ROLE[] {
-    return this.jwtService.decodeToken().roles;
+    return (this.jwtService.decodeToken() as TokenPayload).roles;
   }
 
   public get allUsers(): Observable<UserResponseDto[]> {

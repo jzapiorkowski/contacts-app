@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
-  private constructor(private toastr: ToastrService) {}
+  public constructor(private toastr: ToastrService) {}
 
   public intercept(
     request: HttpRequest<unknown>,

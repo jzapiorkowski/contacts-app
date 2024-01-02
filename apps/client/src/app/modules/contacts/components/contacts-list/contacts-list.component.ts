@@ -28,7 +28,7 @@ export class ContactsListComponent implements OnInit {
     onlyFamily: false,
   };
 
-  private constructor(
+  public constructor(
     private contactsService: ContactsService,
     private contactsFiltererService: ContactsFiltererService,
     private router: Router

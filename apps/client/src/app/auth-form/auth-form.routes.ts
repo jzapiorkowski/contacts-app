@@ -1,8 +1,7 @@
 import { Route } from '@angular/router';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { RegisterFormComponent } from './register-form/register-form.component';
+import { AuthFormComponent } from './auth-form/auth-form.component';
 
 export const authFormRoutes: Route[] = [
-  { path: 'login', component: LoginFormComponent },
-  { path: 'register', component: RegisterFormComponent },
+  { path: 'login', component: AuthFormComponent },
+  { path: 'register', component: AuthFormComponent },
 ];
