@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../shared/services/user.service';
+import { UserService } from '../../../shared/services/user.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateUserRequestDto, SignInDto } from '@contacts-app/libs';
 import { Subject, takeUntil } from 'rxjs';

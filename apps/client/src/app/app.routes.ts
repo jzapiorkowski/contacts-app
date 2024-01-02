@@ -9,7 +9,7 @@ export const appRoutes: Route[] = [
     path: 'auth',
     loadChildren: () =>
       // eslint-disable-next-line @typescript-eslint/typedef
-      import('./auth-form/auth-form.module').then((m) => m.AuthFormModule),
+      import('./core/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'contacts',
