@@ -42,7 +42,7 @@ export class UserController {
 
     await this.userService.createUser({
       ...createUserDto,
-      roles: [...createUserDto.roles, ROLE.USER],
+      roles: [...(createUserDto.roles as ROLE[]), ROLE.USER],
     });
 
     return { message: 'success' };

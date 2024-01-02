@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -29,12 +30,16 @@ export class UserService {
     findUserInputDto: FindUserByUserNameOrIdInputDto
   ): Promise<FindUserByUserNameOrIdOutputDto> {
     try {
-      return this.userModel.findOne(findUserInputDto, {
+      const user = await this.userModel.findOne(findUserInputDto, {
         _id: 1,
         username: 1,
         password: 1,
         roles: 1,
       });
+
+      if (!user) throw new NotFoundException();
+
+      return user;
     } catch {
       throw new InternalServerErrorException('Failed to find user');
     }

@@ -1,4 +1,9 @@
-import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CONTACT_MODEL } from '../../../constants';
 import { Contact } from '../models/contact.schema';
 import { Model } from 'mongoose';
@@ -45,6 +50,11 @@ export class ContactsService {
 
   async findOneForAdmin(id: string): Promise<ReadContactDto> {
     const contact = await this.contactModel.findOne({ _id: id });
+
+    if (!contact) {
+      throw new NotFoundException();
+    }
+
     return ContactMapper.entityToOutputDto(contact);
   }
 

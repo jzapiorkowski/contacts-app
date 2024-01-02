@@ -8,23 +8,18 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  public constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
-  isLoggedIn = false;
+  public isLoggedIn: boolean = false;
 
-  toLogin() {
-    this.router.navigate(['auth/login']);
-  }
-
-  toUserManagement() {
-    this.router.navigate(['manage']);
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
 
-  logout() {
+  public logout(): void {
     this.authService.logout();
     this.router.navigate(['auth/login']);
   }

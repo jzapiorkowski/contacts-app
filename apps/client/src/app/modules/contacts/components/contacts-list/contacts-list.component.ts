@@ -15,33 +15,33 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./contacts-list.component.scss'],
 })
 export class ContactsListComponent implements OnInit {
-  contactsList: Contact[] = [];
-  allContacts: Contact[] = [];
-  isLoading = false;
-  pageSizeOptions = [5, 10, 20, 50];
-  private pageSize = this.pageSizeOptions[0];
-  pageIndex = 0;
+  public contactsList: Contact[] = [];
+  public allContacts: Contact[] = [];
+  public isLoading: boolean = false;
+  public pageSizeOptions: number[] = [5, 10, 20, 50];
+  public pageIndex: number = 0;
+  private pageSize: number = this.pageSizeOptions[0];
   private filterOptions: ContactsFilteringOptions = {
     search: null,
-    sortTypeField: SortTypeField.ModifiedAt,
-    sortDirection: SortDirection.Desc,
+    sortTypeField: SortTypeField.MODIFIED_AT,
+    sortDirection: SortDirection.DESC,
     onlyFamily: false,
   };
 
-  constructor(
+  public constructor(
     private contactsService: ContactsService,
     private contactsFiltererService: ContactsFiltererService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isLoading = true;
 
     this.contactsService
       .getAllContacts()
       .pipe(take(1))
       .subscribe({
-        next: (contacts) => {
+        next: (contacts: Contact[]) => {
           this.allContacts = contacts;
           this.updateContactsListPage();
           this.isLoading = false;
@@ -52,20 +52,20 @@ export class ContactsListComponent implements OnInit {
       });
   }
 
-  onPaginatorChange(event: PageEvent) {
+  public onPaginatorChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.updateContactsListPage();
   }
 
-  onFilterChange(filterOptions: ContactsFilteringOptions) {
+  public onFilterChange(filterOptions: ContactsFilteringOptions): void {
     this.filterOptions = filterOptions;
     this.pageIndex = 0;
     this.updateContactsListPage();
   }
 
-  updateContactsListPage() {
-    const sortedContacts = this.contactsFiltererService.sortContacts(
+  public updateContactsListPage(): void {
+    const sortedContacts: Contact[] = this.contactsFiltererService.sortContacts(
       this.allContacts,
       {
         field: this.filterOptions.sortTypeField,

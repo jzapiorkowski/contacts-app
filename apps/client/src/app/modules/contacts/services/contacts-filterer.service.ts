@@ -13,42 +13,45 @@ interface SortType {
 }
 
 export enum SortTypeField {
-  LastName = 'lastName',
-  PhoneNumber = 'phoneNumber',
-  ModifiedAt = 'modifiedAt',
+  LAST_NAME = 'lastName',
+  PHONE_NUMBER = 'phoneNumber',
+  MODIFIED_AT = 'modifiedAt',
 }
 
 export enum SortDirection {
-  Asc = 'asc',
-  Desc = 'desc',
+  ASC = 'asc',
+  DESC = 'desc',
 }
 
 @Injectable()
 export class ContactsFiltererService {
-  getFilteredContacts(
+  public getFilteredContacts(
     contacts: Contact[],
     { page, pageSize, search, onlyFamily }: ContactFilter
   ): Contact[] {
     if (search) {
-      contacts = contacts.filter((contact) =>
+      contacts = contacts.filter((contact: Contact) =>
         contact.lastName.toLowerCase().includes(search.toLowerCase())
       );
     }
 
     if (onlyFamily) {
-      contacts = contacts.filter((contact) => contact.isFamily);
+      contacts = contacts.filter((contact: Contact) => contact.isFamily);
     }
 
     return contacts.slice((page - 1) * pageSize, page * pageSize);
   }
 
-  sortContacts(contacts: Contact[], { field, direction }: SortType) {
-    return contacts.sort((a, b) => {
-      const valueA =
+  public sortContacts(
+    contacts: Contact[],
+    { field, direction }: SortType
+  ): Contact[] {
+    return contacts.sort((a: Contact, b: Contact) => {
+      const valueA: string | number =
         typeof a[field] === 'string'
           ? (a[field] as string).toLowerCase()
           : a[field];
-      const valueB =
+      const valueB: string | number =
         typeof b[field] === 'string'
           ? (b[field] as string).toLowerCase()
           : b[field];

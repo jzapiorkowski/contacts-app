@@ -2,15 +2,15 @@
 
 <div *ngIf="isLoggedIn; else notLoggedIn">
   <p>seems like you're logged in</p>
-  <button mat-raised-button>
-    <a routerLink="/contacts">Go to your contacts list</a>
+  <button mat-raised-button routerLink="/contacts">
+    Go to your contacts list
   </button>
   <button mat-raised-button (click)="logout()">Log out</button>
 </div>
 
 <ng-template #notLoggedIn>
   <p>Anonymous user</p>
-  <button mat-raised-button (click)="toLogin()">
-    <a> click here to log in </a>
+  <button mat-raised-button [routerLink]="['/auth', 'login']">
+    click here to log in
   </button>
 </ng-template>

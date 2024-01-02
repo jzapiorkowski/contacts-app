@@ -1,7 +1,7 @@
 import { ConfirmationModalComponent } from './../../../../shared/components/confirmation-modal/confirmation-modal.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContactsService } from '../../services/contacts.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, filter, switchMap, takeUntil } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,11 +12,11 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./contact-details.component.scss'],
 })
 export class ContactDetailsComponent implements OnInit, OnDestroy {
-  contactDetails: Contact | null = null;
-  isLoading = false;
-  destroy$ = new Subject();
+  public contactDetails: Contact | null = null;
+  public isLoading: boolean = false;
+  private destroy$: Subject<boolean> = new Subject();
 
-  constructor(
+  public constructor(
     private contactsService: ContactsService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
@@ -24,19 +24,19 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
     private matDialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isLoading = true;
 
     this.route.params
       .pipe(
         takeUntil(this.destroy$),
-        switchMap((params) => {
-          const id = params['id'];
+        switchMap((params: Params) => {
+          const id: string = params['id'];
           return this.contactsService.getContactDetails(id);
         })
       )
       .subscribe({
-        next: (contact) => {
+        next: (contact: Contact) => {
           this.contactDetails = contact;
           this.isLoading = false;
         },
@@ -46,7 +46,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  deleteContact() {
+  public deleteContact(): void {
     if (this.contactDetails) {
       const { _id } = this.contactDetails;
 
@@ -61,7 +61,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
         .afterClosed()
         .pipe(
           takeUntil(this.destroy$),
-          filter((v) => v),
+          filter((v: boolean) => v),
           switchMap(() => this.contactsService.deleteContact(_id))
         )
         .subscribe(() => {
@@ -71,7 +71,7 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
   }

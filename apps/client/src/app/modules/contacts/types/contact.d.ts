@@ -1,4 +1,5 @@
 interface Contact {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   _id: string;
   ownerId: string;
   firstname: string;

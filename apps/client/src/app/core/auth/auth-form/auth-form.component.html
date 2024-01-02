@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h3>{{ isLoginPage ? 'Please log in' : 'Please register' }}</h3>
       <mat-form-field appearance="fill">
         <input matInput formControlName="username" placeholder="Username" />
         <mat-error
@@ -33,9 +34,10 @@
         type="submit"
         [disabled]="form.invalid || form.pending"
       >
-        Register
+        Submit
       </button>
     </form>
-    <a routerLink="/auth/login">click here to login</a>
+    <a *ngIf="isLoginPage" routerLink="/auth/register">Go to register</a>
+    <a *ngIf="!isLoginPage" routerLink="/auth/login"> Go to login </a>
   </mat-card-content>
 </mat-card>

@@ -10,33 +10,30 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
-  constructor(private jwtService: JwtService, private http: HttpClient) {}
+  public constructor(
+    private jwtService: JwtService,
+    private http: HttpClient
+  ) {}
 
-  get getUserId(): string {
-    return this.jwtService.decodeToken().sub;
+  public get getUserId(): string {
+    return (this.jwtService.decodeToken() as TokenPayload).sub;
   }
 
-  get getUserUsername(): string {
-    return this.jwtService.decodeToken().username;
+  public get getUserUsername(): string {
+    return (this.jwtService.decodeToken() as TokenPayload).username;
   }
 
-  get getPermissions(): ROLE[] {
-    return this.jwtService.decodeToken().roles;
+  public get getPermissions(): ROLE[] {
+    return (this.jwtService.decodeToken() as TokenPayload).roles;
   }
 
-  changePassword(userId: string, newPassword: string) {
-    return this.http.put(`http://localhost:3000/user/update/${userId}`, {
-      password: newPassword,
-    });
-  }
-
-  get allUsers(): Observable<UserResponseDto[]> {
+  public get allUsers(): Observable<UserResponseDto[]> {
     return this.http
       .get<UserResponseDto[]>('http://localhost:3000/user')
       .pipe();
   }
 
-  register({
+  public register({
     username,
     password,
     roles = [],

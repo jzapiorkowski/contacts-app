@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@contacts-app/libs": ["libs/src/index.ts"]
-    }
+    },
+    "strictNullChecks": true
   },
   "exclude": ["node_modules", "tmp"]
 }
