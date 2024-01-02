@@ -1,13 +1,14 @@
 import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { ROLE } from '@contacts-app/libs';
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  public constructor(private authService: AuthService) {}
 
-  canActivate(next: ActivatedRouteSnapshot) {
-    const requiredPermissions = next.data['permissions'];
+  public canActivate(next: ActivatedRouteSnapshot): boolean {
+    const requiredPermissions: ROLE[] = next.data['permissions'];
 
     if (!this.authService.hasPermission(requiredPermissions)) {
       return false;

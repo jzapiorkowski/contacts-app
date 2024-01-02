@@ -4,21 +4,21 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ContactsService {
-  constructor(private http: HttpClient) {}
+  private constructor(private http: HttpClient) {}
 
-  getAllContacts(): Observable<Contact[]> {
+  public getAllContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>('http://localhost:3000/contacts');
   }
 
-  getContactDetails(id: string): Observable<Contact> {
+  public getContactDetails(id: string): Observable<Contact> {
     return this.http.get<Contact>(`http://localhost:3000/contacts/${id}`);
   }
 
-  createNewContact(contact: CreateContactDto): Observable<Contact> {
+  public createNewContact(contact: CreateContactDto): Observable<Contact> {
     return this.http.post<Contact>('http://localhost:3000/contacts', contact);
   }
 
-  updateContact(
+  public updateContact(
     id: string,
     contact: Partial<CreateContactDto>
   ): Observable<Contact> {
@@ -28,7 +28,7 @@ export class ContactsService {
     );
   }
 
-  deleteContact(id: string): Observable<void> {
+  public deleteContact(id: string): Observable<void> {
     return this.http.delete<void>(`http://localhost:3000/contacts/${id}`);
   }
 }

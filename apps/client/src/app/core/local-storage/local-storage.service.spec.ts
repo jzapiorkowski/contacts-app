@@ -13,20 +13,20 @@ describe('LocalStorageService', () => {
 
   it('should set an item in local storage', () => {
     localStorageService.setItem('key', 'value');
-    const storedValue = localStorage.getItem('key');
+    const storedValue: string | null = localStorage.getItem('key');
     expect(storedValue).toEqual('value');
   });
 
   it('should get an item from local storage', () => {
     localStorage.setItem('key', 'value');
-    const retrievedValue = localStorageService.getItem('key');
+    const retrievedValue: string | null = localStorageService.getItem('key');
     expect(retrievedValue).toEqual('value');
   });
 
   it('should remove an item from local storage', () => {
     localStorage.setItem('key', 'value');
     localStorageService.removeItem('key');
-    const retrievedValue = localStorage.getItem('key');
+    const retrievedValue: string | null = localStorage.getItem('key');
     expect(retrievedValue).toBeNull();
   });
 });

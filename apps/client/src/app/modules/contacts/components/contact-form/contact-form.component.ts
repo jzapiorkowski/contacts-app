@@ -26,7 +26,7 @@ interface AddressForm {
   styleUrls: ['./contact-form.component.scss'],
 })
 export class ContactFormComponent implements OnInit, OnDestroy {
-  contactForm = new FormGroup<ContactForm>({
+  public contactForm: FormGroup<ContactForm> = new FormGroup<ContactForm>({
     firstname: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -45,18 +45,18 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     ),
   });
 
-  isEditMode = false;
-  destroy$ = new Subject();
+  public isEditMode: boolean = false;
+  private destroy$: Subject<boolean> = new Subject();
 
-  constructor(
+  private constructor(
     private contactsService: ContactsService,
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
+  public ngOnInit(): void {
+    const id: string | undefined = this.route.snapshot.params['id'];
 
     if (id) {
       this.isEditMode = true;
@@ -64,7 +64,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  addAddressFormGroup(address?: Address): FormGroup<AddressForm> {
+  private addAddressFormGroup(address?: Address): FormGroup<AddressForm> {
     return new FormGroup<AddressForm>({
       street: new FormControl(address?.street || '', [
         Validators.required,
@@ -89,19 +89,19 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  get addressesFormArray(): FormArray<FormGroup<AddressForm>> {
+  public get addressesFormArray(): FormArray<FormGroup<AddressForm>> {
     return this.contactForm.controls.addresses;
   }
 
-  addAddress() {
+  public addAddress(): void {
     this.addressesFormArray.push(this.addAddressFormGroup());
   }
 
-  removeAddress(index: number) {
+  public removeAddress(index: number): void {
     this.addressesFormArray.removeAt(index);
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     if (this.contactForm.invalid) {
       return;
     }
@@ -110,17 +110,19 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       firstname: this.contactForm.value.firstname!,
       lastName: this.contactForm.value.lastName!,
       phoneNumber: this.contactForm.value.phoneNumber!,
-      addresses: this.contactForm.value.addresses!.map((address) => ({
-        street: address.street!,
-        city: address.city!,
-        state: address.state!,
-        zip: address.zip!,
-        country: address.country!,
-      })),
+      addresses: this.contactForm.value.addresses!.map(
+        (address: Record<string, string | null>) => ({
+          street: address['street']!,
+          city: address['city']!,
+          state: address['state']!,
+          zip: address['zip']!,
+          country: address['country']!,
+        })
+      ),
     };
 
     if (this.isEditMode) {
-      const id = this.route.snapshot.params['id'];
+      const id: string = this.route.snapshot.params['id'];
 
       this.contactsService
         .updateContact(id, contactDto)
@@ -136,7 +138,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     this.contactsService
       .createNewContact(contactDto)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((contact) => {
+      .subscribe((contact: Contact) => {
         this.toastr.success('Contact created successfully!');
         this.router.navigate(['/contacts', contact._id]);
       });
@@ -147,7 +149,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       .getContactDetails(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (contact) => {
+        next: (contact: Contact) => {
           this.contactForm.patchValue({
             firstname: contact.firstname,
             lastName: contact.lastName,
@@ -156,7 +158,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
           this.addressesFormArray.clear();
 
-          contact.addresses.forEach((address) => {
+          contact.addresses.forEach((address: Address) => {
             this.addressesFormArray.push(this.addAddressFormGroup(address));
           });
         },
@@ -166,7 +168,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
   }

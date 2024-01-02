@@ -5,11 +5,13 @@ import { ACCESS_TOKEN } from '@contacts-app/libs';
 
 describe('JwtService', () => {
   let jwtService: JwtService;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let localStorageServiceMock: any;
-  const mockToken =
+  const mockToken: string =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/typedef
     const localStorageServiceSpy = { getItem: jest.fn() };
 
     TestBed.configureTestingModule({
@@ -33,7 +35,7 @@ describe('JwtService', () => {
   it('should decode a valid JWT token', () => {
     localStorageServiceMock.getItem.mockReturnValue(mockToken);
 
-    const decodedToken = jwtService.decodeToken();
+    const decodedToken: unknown = jwtService.decodeToken();
     expect(decodedToken).toEqual({
       sub: '1234567890',
       name: 'John Doe',
@@ -42,11 +44,11 @@ describe('JwtService', () => {
   });
 
   it('should handle decoding error', () => {
-    const invalidToken =
+    const invalidToken: string =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
     localStorageServiceMock.getItem.mockReturnValue(invalidToken);
 
-    const decodedToken = jwtService.decodeToken();
+    const decodedToken: unknown = jwtService.decodeToken();
 
     expect(decodedToken).toBeNull();
   });

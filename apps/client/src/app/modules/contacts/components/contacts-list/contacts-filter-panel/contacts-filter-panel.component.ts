@@ -18,27 +18,29 @@ interface ContactsFilterForm {
   styleUrls: ['./contacts-filter-panel.component.scss'],
 })
 export class ContactsFilterPanelComponent {
-  filterPanelForm = new FormGroup<ContactsFilterForm>({
-    search: new FormControl<string | null>(null),
-    sortTypeField: new FormControl<SortTypeField>(SortTypeField.ModifiedAt),
-    sortDirection: new FormControl<SortDirection>(SortDirection.Desc),
-    onlyFamily: new FormControl<boolean>(false),
-  });
+  public filterPanelForm: FormGroup<ContactsFilterForm> =
+    new FormGroup<ContactsFilterForm>({
+      search: new FormControl<string | null>(null),
+      sortTypeField: new FormControl<SortTypeField>(SortTypeField.MODIFIED_AT),
+      sortDirection: new FormControl<SortDirection>(SortDirection.DESC),
+      onlyFamily: new FormControl<boolean>(false),
+    });
 
-  @Output() filteringOptions = new EventEmitter<ContactsFilteringOptions>();
+  @Output() public filteringOptions: EventEmitter<ContactsFilteringOptions> =
+    new EventEmitter<ContactsFilteringOptions>();
 
-  sortTypeFieldOptions: SortTypeField[] = [
-    SortTypeField.LastName,
-    SortTypeField.PhoneNumber,
-    SortTypeField.ModifiedAt,
+  public sortTypeFieldOptions: SortTypeField[] = [
+    SortTypeField.LAST_NAME,
+    SortTypeField.PHONE_NUMBER,
+    SortTypeField.MODIFIED_AT,
   ];
 
-  sortDirectionOptions: SortDirection[] = [
-    SortDirection.Desc,
-    SortDirection.Asc,
+  public sortDirectionOptions: SortDirection[] = [
+    SortDirection.DESC,
+    SortDirection.ASC,
   ];
 
-  submitForm() {
+  public submitForm(): void {
     if (this.filterPanelForm.invalid) {
       return;
     }

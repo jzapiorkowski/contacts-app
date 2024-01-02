@@ -15,13 +15,16 @@ import {
 
 @Injectable()
 export class AuthService {
-  constructor(
+  public constructor(
     private http: HttpClient,
     private userService: UserService,
     private localStorageService: LocalStorageService
   ) {}
 
-  login({ username, password }: SignInDto): Observable<LoginResponseDto> {
+  public login({
+    username,
+    password,
+  }: SignInDto): Observable<LoginResponseDto> {
     return this.http
       .post<LoginResponseDto>('http://localhost:3000/auth/login', {
         username,
@@ -34,11 +37,12 @@ export class AuthService {
   }
 
   private setSession(authResult: LoginResponseDto): void {
-    const match = authResult.expires_in.match(/^(\d+)h$/);
-    const hours = parseInt(match![1], 10);
-    const expiresIn = hours * 3600;
+    const match: RegExpMatchArray | null =
+      authResult.expires_in.match(/^(\d+)h$/);
+    const hours: number = parseInt(match![1], 10);
+    const expiresIn: number = hours * 3600;
 
-    const expiresAt = moment().add(expiresIn, 'second');
+    const expiresAt: moment.Moment = moment().add(expiresIn, 'second');
 
     this.localStorageService.setItem(ACCESS_TOKEN, authResult.access_token);
     this.localStorageService.setItem(
@@ -47,25 +51,27 @@ export class AuthService {
     );
   }
 
-  logout(): void {
+  public logout(): void {
     this.localStorageService.removeItem(ACCESS_TOKEN);
     this.localStorageService.removeItem(EXPIRES_AT);
   }
 
-  isLoggedIn(): boolean {
-    const expiresAt = this.getExpiration();
+  public isLoggedIn(): boolean {
+    const expiresAt: moment.Moment = this.getExpiration();
 
     return moment().isBefore(expiresAt);
   }
 
-  private getExpiration() {
-    const expiration = this.localStorageService.getItem(EXPIRES_AT);
-    const expiresAt = JSON.parse(expiration!);
+  private getExpiration(): moment.Moment {
+    const expiration: string = this.localStorageService.getItem(
+      EXPIRES_AT
+    )! as string;
+    const expiresAt: string = JSON.parse(expiration!);
 
     return moment(expiresAt);
   }
 
-  hasPermission(requiredPermissions: ROLE[]): boolean {
+  public hasPermission(requiredPermissions: ROLE[]): boolean {
     return this.userService.getPermissions.some((permission: ROLE) =>
       requiredPermissions.includes(permission)
     );

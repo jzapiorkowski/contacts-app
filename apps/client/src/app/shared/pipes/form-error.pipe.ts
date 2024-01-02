@@ -5,7 +5,7 @@ import { ValidationErrors } from '@angular/forms';
   name: 'formError',
 })
 export class FormErrorPipe implements PipeTransform {
-  transform(errors: ValidationErrors | null): string {
+  public transform(errors: ValidationErrors | null): string {
     if (!errors) return '';
 
     if (errors['required']) {

@@ -10,9 +10,9 @@ import { JwtService } from '../auth/jwt/jwt.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private jwtService: JwtService) {}
+  public constructor(private jwtService: JwtService) {}
 
-  intercept(
+  public intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {

@@ -8,12 +8,14 @@ export const appRoutes: Route[] = [
   {
     path: 'auth',
     loadChildren: () =>
+      // eslint-disable-next-line @typescript-eslint/typedef
       import('./auth-form/auth-form.module').then((m) => m.AuthFormModule),
   },
   {
     path: 'contacts',
     loadChildren: () =>
       import('./modules/contacts/contacts.module').then(
+        // eslint-disable-next-line @typescript-eslint/typedef
         (m) => m.ContactsModule
       ),
     canActivate: [AuthGuard],

@@ -10,7 +10,7 @@
 
 <ng-template #notLoggedIn>
   <p>Anonymous user</p>
-  <button mat-raised-button (click)="toLogin()">
-    <a> click here to log in </a>
+  <button mat-raised-button>
+    <a [routerLink]="['/auth', 'login']"> click here to log in </a>
   </button>
 </ng-template>

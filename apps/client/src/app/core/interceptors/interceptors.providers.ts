@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
 import { GlobalErrorInterceptor } from './global-error.interceptor';
 
-export const interceptorsProviders = [
+export const interceptorsProviders: object[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
