@@ -31,7 +31,7 @@ export class AuthService {
         password,
       })
       .pipe(
-        tap((res) => this.setSession(res)),
+        tap((res: LoginResponseDto) => this.setSession(res)),
         shareReplay()
       );
   }
