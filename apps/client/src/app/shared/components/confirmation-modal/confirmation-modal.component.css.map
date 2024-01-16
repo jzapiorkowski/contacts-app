@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACA,KAAK,EAAE,KAAK;CACb",
+    "sources": [
+        "confirmation-modal.component.scss"
+    ],
+    "names": [],
+    "file": "confirmation-modal.component.css"
+}
